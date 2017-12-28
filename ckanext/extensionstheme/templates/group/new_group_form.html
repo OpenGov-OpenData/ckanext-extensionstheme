@@ -1,0 +1,10 @@
+{% ckan_extends %}
+{% set group_alias = h.extensionstheme_group_alias() %}
+
+{% block save_text %}
+  {%- if action == "edit" -%}
+    {{ _("Update %s")|format(group_alias) }}
+  {%- else -%}
+    {{ _("Create %s")|format(group_alias) }}
+  {%- endif -%}
+{% endblock %}

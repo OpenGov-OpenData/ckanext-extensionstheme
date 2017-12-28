@@ -1,0 +1,20 @@
+{% ckan_extends %}
+{% block page_primary_action %}
+  {% if h.check_access('package_create') %}
+    {% link_for _('Add Extension'), controller='package', action='new', class_="btn btn-primary", icon="plus-square" %}
+  {% endif %}
+{% endblock %}
+
+{% block primary_content_inner %}
+  <h2 class="hide-heading">{{ _('My Extensions') }}</h2>
+  {% if c.user_dict.datasets %}
+    {% snippet 'snippets/package_list.html', packages=c.user_dict.datasets %}
+  {% else %}
+    <p class="empty">
+      {{ _('You haven\'t created any extension.') }}
+      {% if h.check_access('package_create') %}
+        {% link_for _('Create one now?'), controller='package', action='new' %}
+      {% endif %}
+    </p>
+  {% endif %}
+{% endblock %}

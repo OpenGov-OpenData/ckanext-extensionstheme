@@ -1,0 +1,15 @@
+{%ckan_extends%}
+{% block info_module %}
+    <section class="module module-narrow module-shallow">
+      <h2 class="module-heading"><i class="fa fa-info-circle"></i> {{ _('What are extensions?') }}</h2>
+      <div class="module-content">
+        <p>
+          {% trans %}
+          A CKAN extension is usually an external feature for CKAN portal (such as ckanext-scheming),
+          together with a description, at a fixed URL(usually posted on Github).
+          Extensions are what users see when searching for specific extension.
+          {% endtrans %}
+        </p>
+      </div>
+    </section>
+  {% endblock %}

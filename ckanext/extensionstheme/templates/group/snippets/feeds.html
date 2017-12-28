@@ -1,0 +1,5 @@
+{%- set dataset_feed = h.url_for(controller='feed', action='group', id=c.group_dict.name) -%}
+{%- set history_feed = h.url_for(controller='revision', action='list', format='atom', days=1) -%}
+{% set group_alias = h.extensionstheme_group_alias() %}
+<link rel="alternate" type="application/atom+xml" title="{{ g.site_title }} - {{ _('Extensions in {group_alias}: {group}').format(group_alias=group_alias,group=c.group_dict.display_name) }}" href="{{ dataset_feed }}" />
+<link rel="alternate" type="application/atom+xml" title="{{ g.site_title }} - {{ _('Recent Revision History') }}" href="{{ history_feed }}" />

@@ -1,0 +1,26 @@
+{% extends "snippets/search_form.html" %}
+
+{% block search_title %}
+
+  <h2>
+    {% set text_query = ungettext('{number} listing request found for "{query}"', '{number} listing requests found for "{query}"', count) %}
+    {% set text_query_none = _('No listing requests found for "{query}"') %}
+    {% set text_no_query = ungettext('{number} listing request found', '{number} listing requests found', count) %}
+    {% set text_no_query_none = _('No listing requests found') %}
+
+    {% if query %}
+      {%- if count -%}
+        {{ text_query.format(number=h.localised_number(count), query=query) }}
+      {%- else -%}
+        {{ text_query_none.format(query=query) }}
+      {%- endif -%}
+    {%- else -%}
+      {%- if count -%}
+        {{ text_no_query.format(number=h.localised_number(count)) }}
+      {%- else -%}
+        {{ text_no_query_none }}
+      {%- endif -%}
+    {%- endif -%}
+  </h2>
+
+{% endblock %}

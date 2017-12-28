@@ -1,0 +1,13 @@
+{% set org_alias = h.extensionstheme_organization_alias()%}
+
+<div class="module module-narrow module-shallow">
+  <h2 class="module-heading">
+    <i class="fa fa-lg fa fa-info-circle"></i>
+    {{ _("What are %ss?")|format(org_alias) }}
+  </h2>
+  <div class="module-content">
+    {% trans %}
+      <p>CKAN {{org_alias}}s are used to create, manage and publish collections of datasets. Users can have different roles within an {{org_alias}}, depending on their level of authorisation to create, edit and publish.</p>
+    {% endtrans %}
+  </div>
+</div>

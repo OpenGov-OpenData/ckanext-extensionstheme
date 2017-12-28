@@ -1,0 +1,21 @@
+
+{% block primary %}
+<div class = "github-widget-panel">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+	<link rel="stylesheet" href="http://okfnlabs.org/githubActivity.js/githubActivity.css">
+	<script src="http://okfnlabs.org/githubActivity.js/githubActivity.js"></script>
+	<div id="github-title"><h1><a href="#" onclick="window.open('{{repo_url}}')" >Recent Event</a></h1></div>
+	<div id="github-activity"></div>
+	<script>
+	var repo_url = '{{repo_url}}';
+	var repo = repo_url.split("/");
+	const repo_addr = repo[repo.length - 2] + "/" + repo[repo.length - 1];
+	console.log(repo_addr)
+	$('#github-activity').githubActivity({
+	  "events": 10,
+	  "repos": [repo_addr]
+	});
+	</script>
+</div>
+{% endblock %}

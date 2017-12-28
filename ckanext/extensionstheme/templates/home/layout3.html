@@ -1,0 +1,103 @@
+{% set title = g.site_title %}
+{% set intro = g.site_intro_text %}
+{% set group_alias = h.extensionstheme_group_alias() %}
+
+<div role="main">
+  <div class="main-carousel">
+    <div class="container">
+      <div class="row row2">
+        <div class="span8 col1">
+          <div id="headerHeight">
+            <div class="module-content">
+              <h2 class="hero-text-heading heading">{{ title }}</h2>
+              <div class="hero-text-description secondary-heading">
+                {% if intro %}
+                  {{ h.render_markdown(intro) }}
+                {% else %}
+                  CKAN is a powerful data management system that makes data accessible - by providing tools to streamline publishing, sharing, finding and using data.
+                {% endif %}
+              </div>
+            </div>
+            <div class="main-search" style="padding-bottom:24px">
+              {% snippet 'home/snippets/search.html' %}
+            </div>
+          </div>
+        </div>
+        <div class="span4 col2">
+          {% if h.extensionstheme_get_showcases() %}
+            {% snippet 'home/snippets/showcase_list.html', showcases=h.extensionstheme_get_showcases() %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if h.extensionstheme_get_groups() %}
+  <div class="main-browse">
+    <div class="container">
+      <div class="row">
+        <div class="span12 col1">
+          <div class="module-content box" style="padding: 40px">
+            <header>
+              <h2 class="heading"><a href="/group">Groups</a></h2>
+              <hr/>
+            </header>
+            <section>
+            <ul id="ext-groups" class="media-grid">
+            {% for group in h.extensionstheme_get_groups() %}
+              <li class="media-item ext-group">
+                <div>
+                <a href="/group/{{ group.name }}">
+                  <img class="browse-group-image" alt="" src="{{ group.image_display_url or '/base/images/placeholder-group.png' }}">
+                  <div class="browse-group-title">
+                    {{ group.display_name }}
+                  </div>
+                  {% if group.package_count %}
+                    <strong class="count">{{ ungettext('{num} Extension', '{num} Extensions', group.package_count).format(num=group.package_count) }}</strong>
+                  {% elif group.package_count == 0 %}
+                    <span class="count">{{ _('0 Extension') }}</span>
+                  {% endif %}
+                </a>
+                </div>
+                </li>
+              
+            {% endfor %}
+            </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="main-updates">
+    <div class="container">
+      <div class="row">
+        <div class="span8 col1" id="catalogue_height">
+          {% snippet 'home/snippets/popular_datasets.html' %}
+          {% snippet 'home/snippets/recent_datasets.html' %}
+          {{h.disqus_recent(num_comments=5)}}
+
+        </div>
+        <!-- extra widgets -->
+        <div class="span4 col2">
+          {% snippet 'snippets/widget/tweets_widget.html' %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.twitter-widget').height($('#catalogue_height').outerHeight(true));
+        $('.slick-track').height($('#headerHeight').outerHeight(true)/1.13);
+    });
+
+    $(window).on('resize', function(){
+        $('.twitter-widget').height($('#catalogue_height').outerHeight(true));
+        $('.slick-track').height($('#headerHeight').outerHeight(true)/1.13);
+    });
+</script>

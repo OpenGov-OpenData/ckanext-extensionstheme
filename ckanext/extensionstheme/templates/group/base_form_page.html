@@ -1,0 +1,14 @@
+{% ckan_extends %}
+{% set group_alias = h.extensionstheme_group_alias() %}
+
+{% block breadcrumb_content %}
+  <li>{{ h.nav_link( "%ss"|format(group_alias), controller='group', action='index') }}</li>
+  <li class="active">{% block breadcrumb_link %}{{ h.nav_link(_("Add a %s")|format(group_alias), controller='group', action='new') }}{% endblock %}</li>
+{% endblock %}
+
+{% block primary_content_inner %}
+  <h1 class="{% block page_heading_class %}page-heading{% endblock %}">{% block page_heading %}{{ _("%s Form")|format(group_alias) }}{% endblock %}</h1>
+  {% block form %}
+    {{ c.form | safe }}
+  {% endblock %}
+{% endblock %}

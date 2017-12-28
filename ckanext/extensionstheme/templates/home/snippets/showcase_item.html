@@ -1,0 +1,26 @@
+{% ckan_extends %}
+
+{% block showcase_item %}
+
+<div class="media-item" id="showcase-slide" style="border-radius: 10px;">
+    {% block item_inner %}
+
+        {% block image %}
+            {% if showcase.extras[0].value and 'http' not in showcase.extras[0].value %}
+                <img data-lazy="/uploads/showcase/{{ showcase.extras[0].value }}" alt="" class="showcase-media-image">
+            {% else %}
+                <img data-lazy="{{ showcase.extras[0].value or h.url_for_static('/base/images/placeholder-group.png') }}" alt="" class="showcase-media-image">
+            {% endif %}
+        {% endblock %}
+
+        {% block title %}
+            <h3>{{ showcase.title }}</h3>
+        {% endblock %}
+        {% block link %}
+            <a href="{{ h.url_for(controller='ckanext.showcase.controller:ShowcaseController', action='read', id=showcase.name) }}" title="{{ _('View {name}').format(name=showcase.title) }}" class="media-view">
+                <span>{{ _('View {name}').format(name=showcase.title) }}</span>
+            </a>
+        {% endblock %}
+    {% endblock %}
+</div>
+{% endblock %}

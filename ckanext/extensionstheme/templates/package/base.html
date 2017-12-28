@@ -1,0 +1,19 @@
+{%ckan_extends%}
+{% set org_alias = h.extensionstheme_organization_alias() %}
+
+{% block breadcrumb_content %}
+  {% if pkg %}
+    {% set dataset = h.dataset_display_name(pkg) %}
+    {% if pkg.organization %}
+      {% set organization = pkg.organization.title or pkg.organization.name %}
+      <li>{% link_for _('%ss')|format(org_alias), controller='organization', action='index' %}</li>
+      <li>{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</li>
+    {% else %}
+      <li>{% link_for _('Extensions'), controller='package', action='search' %}</li>
+    {% endif %}
+    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(65), controller='package', action='read', id=pkg.name %}</li>
+  {% else %}
+    <li>{% link_for _('Extensions'), controller='package', action='search' %}</li>
+    <li class="active"><a href="">{{ _('Create Extension') }}</a></li>
+  {% endif %}
+{% endblock %}

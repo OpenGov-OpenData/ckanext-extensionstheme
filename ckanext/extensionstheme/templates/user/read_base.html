@@ -1,0 +1,5 @@
+{% ckan_extends %}
+
+{% block user_image %}
+ <div class="image">{{ h.extensionstheme_linked_gravatar(user.email_hash, 190) }}</div>
+{% endblock %}

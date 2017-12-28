@@ -1,0 +1,35 @@
+{% set group_alias = h.extensionstheme_group_alias() %}
+{% set org_alias = h.extensionstheme_organization_alias() %}
+
+{% if type == 'dataset' %}
+  {% set text_query = ungettext('{number} extensions found for "{query}"', '{number} extensions found for "{query}"', count) %}
+  {% set text_query_none = _('No extensions found for "{query}"') %}
+  {% set text_no_query = ungettext('{number} extensions found', '{number} extensions found', count) %}
+  {% set text_no_query_none = _('No extensions found') %}
+
+{% elif type == 'group' %}
+  {% set text_query = ungettext(_('{number} %ss found for "{query}"')|format(group_alias.lower()), _('{number} %ss found for "{query}"')|format(group_alias.lower()), count) %}
+  {% set text_query_none = _('No %s found for "{query}"')|format(group_alias.lower()) %}
+  {% set text_no_query = ungettext(_('{number} %ss found')|format(group_alias.lower()), _('{number} %ss found')|format(group_alias.lower()), count) %}
+  {% set text_no_query_none = _('No %s found')|format(group_alias.lower()) %}
+
+{% elif type == 'organization' %}
+  {% set text_query = ungettext(_('{number} %s found for "{query}"')|format(org_alias.lower()), _('{number} %ss found for "{query}"')|format(org_alias.lower()), count) %}
+  {% set text_query_none = _('No %s found for "{query}"')|format(org_alias.lower()) %}
+  {% set text_no_query = ungettext(_('{number} %s found')|format(org_alias.lower()), _('{number} %ss found')|format(org_alias.lower()), count) %}
+  {% set text_no_query_none = _('No %s found')|format(org_alias.lower()) %}
+{%- endif -%}
+
+{% if query %}
+  {%- if count -%}
+    {{ text_query.format(number=h.localised_number(count), query=query) }}
+  {%- else -%}
+    {{ text_query_none.format(query=query) }}
+  {%- endif -%}
+{%- else -%}
+  {%- if count -%}
+    {{ text_no_query.format(number=h.localised_number(count)) }}
+  {%- else -%}
+    {{ text_no_query_none }}
+  {%- endif -%}
+{%- endif -%}

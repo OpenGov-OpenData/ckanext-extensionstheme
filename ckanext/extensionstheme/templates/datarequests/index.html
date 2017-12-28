@@ -1,0 +1,37 @@
+{% extends "datarequests/base.html" %}
+
+{% block primary_content %}
+  <section class="module">
+    <div class="module-content">
+      {% block page_primary_action %}
+      {# login page: add request #}
+        {% if h.check_access('datarequest_create') %}
+          <div class="page_primary_action">
+            {% link_for _('Add Listing Request'), controller='ckanext.datarequests.controllers.ui_controller:DataRequestsUI', action='new', class_='btn btn-primary', icon=h.get_plus_icon() %}
+          </div>
+        {% endif %}
+        {# non login page: login first #}
+        {% if c.userobj == None %}
+        <div class="page_primary_action">
+         {% link_for _('Add Listing Request'), controller='user', action='login', class_='btn btn-primary', icon=h.get_plus_icon() %}
+         </div>
+        {% endif %}
+
+        {% snippet 'snippets/custom_search_form.html', query=c.q, fields=(('organization', c.organization), ('state', c.state)), sorting=c.filters, sorting_selected=c.sort, placeholder=_('Search Listing Requests...'), no_bottom_border=true, count=c.datarequest_count, no_title=True %}
+        {{ h.snippet('datarequests/snippets/datarequest_list.html', datarequest_count=c.datarequest_count, datarequests=c.datarequests, page=c.page, q=c.q)}}
+      {% endblock %}
+    </div>
+  </section>
+{% endblock %}
+
+{% block secondary_content %}
+  {{ super() }}
+  {# forbbiden facet to only state as there is ckan version compatibility issue for organization attribute #}
+  {% for facet in c.facet_titles %}
+  {% if facet == 'state' %}
+    {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+  
+  {% endif %}
+  {% endfor %}
+  
+{% endblock %}

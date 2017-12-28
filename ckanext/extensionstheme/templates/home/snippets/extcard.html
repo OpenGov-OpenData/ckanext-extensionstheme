@@ -1,0 +1,30 @@
+
+{% set avatar = h.extensionstheme_getLOGO(package) or "http://quintagroup.com/cms/python/images/ckan.png" %}
+<a href="{{h.url_for(controller='package', action='read', id=package.name)}}"><li class="media-item extcard">
+<div class="extcard-avatar">
+  <img src={{avatar}} class="extavatar">
+</div>
+<div class="dataset-content extcard-content">
+<h1 class="dataset-heading">{{h.link_to(package.repo,h.url_for(controller='package', action='read', id=package.name))}}</h1>
+    <p >{{ package.title or package.name }}</p>
+    
+    {#{% if curr_package.resources %}
+      <ul class="dataset-resources unstyled">
+        {% for resource in h.dict_list_reduce(curr_package.resources, 'format') %}
+          <li>
+            <a href="{{ h.url_for(controller='package', action='read', id=package.name) }}" class="label" data-format="{{ resource.lower() }}" style="color:white;">{{ resource }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}#}
+</div>
+<hr>
+<div class="extcard-extra">
+  <span class="extcard-author"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;&nbsp;{{package.author  or 'unknown'}}</span>
+  {% set curr_package = h.extensionstheme_get_package_metadata(package) %}
+    <span class="extcard-review"><i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;&nbsp;{{curr_package.tracking_summary.recent}} recent views</span>
+    {% if package.metadata_modified %}
+      <span class="extcard-update"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;&nbsp; {{h.render_datetime(package.metadata_modified)}}</span>
+    {% endif %}
+</div>
+</li></a>

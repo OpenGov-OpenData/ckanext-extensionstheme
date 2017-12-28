@@ -1,0 +1,12 @@
+{% ckan_extends %}
+
+  {% block description %}
+  {% endblock %}
+  
+  {% block datasets %}
+    {% if organization.package_count %}
+      <strong class="count">{{ ungettext('{num} Extension', '{num} Extensions', organization.package_count).format(num=organization.package_count) }}</strong>
+    {% else %}
+      <span class="count">{{ _('0 Extensions') }}</span>
+    {% endif %}
+  {% endblock %}

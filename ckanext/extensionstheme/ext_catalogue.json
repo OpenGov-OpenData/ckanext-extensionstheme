@@ -1,0 +1,154 @@
+{
+  "scheming_version": 1,
+  "dataset_type": "dataset",
+  "about": "A reimplementation of the default CKAN dataset schema",
+  "about_url": "http://github.com/ckan/ckanext-scheming",
+  "dataset_fields": [
+    {
+      "field_name": "title",
+      "label": "Title",
+      "preset": "title",
+      "validators": "not_empty",
+      "form_placeholder": "e.g. Extension Name"
+    },
+    {
+      "field_name": "name",
+      "label": "URL",
+      "preset": "dataset_slug",
+      "form_placeholder": "e.g. ckanext-XXX"
+    },
+    {
+      "field_name": "repo",
+      "label": "Repository",
+      "preset": "title",
+      "form_placeholder": "e.g. ckanext-XXX"
+    },
+    {
+      "field_name": "subtitle",
+      "label": "Sub Title",
+      "preset": "title",
+      "form_placeholder": "e.g. One line description for the Extension"
+    },
+    {
+      "field_name": "notes",
+      "label": "Editor Notes",
+      "form_snippet": "markdown.html",
+      "form_placeholder": "e.g. A detailed readme document about the extension"
+    },
+    {
+      "field_name": "url",
+      "label": "Github URL",
+      "validators": "not_empty",
+      "form_placeholder": "e.g. https://github.com/open-data/ckanext-scheming",
+      "display_property": "foaf:homepage",
+      "display_snippet": "link.html"
+    },
+    {
+      "field_name": "owner_org",
+      "label": "Organization",
+      "preset": "dataset_organization"
+    },
+    {
+      "field_name": "ext_type",
+      "label": "Type",
+      "validators": "not_empty",
+      "preset": "select",
+      "choices": [
+        {
+          "value": "extension",
+          "label": "Extension"
+        },
+        {
+          "value": "tool",
+          "label": "Tool"
+        },
+        {
+          "value": "integration",
+          "label": "Integration"
+        }
+      ]
+    },
+    {
+      "field_name": "tag_string",
+      "label": "Tags",
+      "preset": "tag_string_autocomplete",
+      "form_placeholder": "e.g. economy, mental health, government"
+    },
+    {
+      "field_name": "author",
+      "label": "Author",
+      "form_placeholder": "e.g. John",
+      "display_property": "dc:creator"
+    },
+    {
+      "field_name": "maintainer",
+      "label": "Maintainer",
+      "form_placeholder": "e.g. Joe Bloggs",
+      "display_property": "dc:creator"
+    },
+    {
+      "field_name": "maintainer_email",
+      "label": "Maintainer Email",
+      "form_placeholder": "e.g. joe@example.com",
+      "display_property": "dc:creator"
+    },
+    {
+      "field_name": "isFeatured",
+      "label": "Is Featured?",
+      "preset": "multiple_checkbox",
+      "choices": [
+        {
+          "value": "yes",
+          "label": "yes"
+        }
+      ]
+    },
+    {
+      "field_name": "isJunk",
+      "label": "Is Junk?",
+      "preset": "multiple_checkbox",
+      "choices": [
+        {
+          "value": "yes",
+          "label": "yes"
+        }
+
+      ]
+    },
+    {
+      "field_name": "isDuplicate",
+      "label": "Is Duplicate?",
+      "preset": "multiple_checkbox",
+      "choices": [
+        {
+          "value": "yes",
+          "label": "yes"
+        }
+
+      ]
+    }
+  ],
+  "resource_fields": [
+    {
+      "field_name": "url",
+      "label": "URL",
+      "preset": "resource_url_upload"
+    },
+    {
+      "field_name": "name",
+      "label": "Name",
+      "form_placeholder": "eg. January 2011 Gold Prices"
+    },
+    {
+      "field_name": "description",
+      "label": "Description",
+      "form_snippet": "markdown.html",
+      "form_placeholder": "Some useful notes about the data"
+    },
+    {
+      "field_name": "format",
+      "label": "Format",
+      "preset": "resource_format_autocomplete"
+    }
+  ]
+}

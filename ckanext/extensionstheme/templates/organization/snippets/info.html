@@ -1,0 +1,12 @@
+{% set org_alias = h.extensionstheme_organization_alias() %}
+
+{% if organization and h.check_access('organization_update', {'id':organization.id }) %}
+  <section class="module module-narrow package-info">
+    <h2 class="module-heading"><i class="fa fa-sitemap"></i> {{ _("Edit %s")|format(org_alias) }}</h2>
+    <ul class="unstyled nav nav-simple">
+      <li class="nav-item{% if action == 'edit' %} active{% endif %}">
+        {% link_for _("Edit %s")|format(org_alias), controller='organization', action='edit', id=organization.name %}
+      </li>
+    </ul>
+  </section>
+{% endif %}

@@ -1,0 +1,14 @@
+{% ckan_extends %}
+{% set group_alias = h.extensionstheme_group_alias() %}
+{% set org_alias = h.extensionstheme_organization_alias() %}
+
+{% block facet_list_heading %}
+  <h2 class="module-heading">
+    <i class="icon-medium icon-filter"></i>
+    {% set title = title or h.get_facet_title(name) %}
+    {% if title=="Organizations" %} {% set title = org_alias+'s' %}
+    {% elif title=="Groups" %} {% set title = group_alias+'s' %}
+    {% endif %}
+    {{ title }}
+  </h2>
+{% endblock %}

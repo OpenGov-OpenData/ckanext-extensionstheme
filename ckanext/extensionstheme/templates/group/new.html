@@ -1,0 +1,10 @@
+{% ckan_extends%}
+{% set group_alias = h.extensionstheme_group_alias() %}
+
+{% block subtitle %}{{ _("Create a %s")|format(group_alias) }}{% endblock %}
+
+{% block breadcrumb_link %}
+<li class="active"><a href="#">{{ _("Create a %s")|format(group_alias) }}</a></li>
+{% endblock %}
+
+{% block page_heading %}{{ _("Create a %s")|format(group_alias) }}{% endblock %}

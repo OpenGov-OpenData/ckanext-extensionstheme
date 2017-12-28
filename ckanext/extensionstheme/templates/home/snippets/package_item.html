@@ -1,0 +1,23 @@
+{#
+Displays a single of dataset.
+
+package        - A package to display.
+item_class     - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+
+Example:
+
+  {% snippet 'snippets/package_item.html', package=c.datasets[0] %}
+
+#}
+{% set truncate = truncate or 180 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title = package.repo %}
+{% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+
+{% block package_item %}
+  {% snippet 'home/snippets/extcard.html', package=package %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% ckan_extends %}
+{% set org_alias = h.extensionstheme_organization_alias() %}
+
+{% block info %}
+  <div class="module module-narrow module-shallow context-info">
+    {% if has_context_title %}
+      <h2 class="module-heading"><i class="fa fa-building-o"></i> {{ org_alias }}</h2>
+    {% endif %}
+    <section class="module-content">
+      {% block inner %}
+      {% block image %}
+        <div class="image">
+          <a href="{{ url }}">
+            <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" width="200" alt="{{ organization.name }}" />
+          </a>
+        </div>
+      {% endblock %}
+      {% block heading %}
+      <h1 class="heading">{{ organization.title or organization.name }}
+        {% if organization.state == 'deleted' %}
+          [{{ _('Deleted') }}]
+        {% endif %}
+      </h1>
+      {% endblock %}
+      {% block description %}
+      {% endblock %}
+      {% if show_nums %}
+        {% block nums %}
+        <div class="nums">
+          <dl>
+            <dt>{{ _('Followers') }}</dt>
+            <dd>{{ h.SI_number_span(organization.num_followers) }}</dd>
+          </dl>
+          <dl>
+            <dt>{{ _('Extensions') }}</dt>
+            <dd>{{ h.SI_number_span(organization.package_count) }}</dd>
+          </dl>
+        </div>
+        {% endblock %}
+        {% block follow %}
+        <div class="follow_button">
+          {{ h.follow_button('group', organization.id) }}
+        </div>
+        {% endblock %}
+      {% endif %}
+      {% endblock %}
+    </section>
+  </div>
+{% endblock %}

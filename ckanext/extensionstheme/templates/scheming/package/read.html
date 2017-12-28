@@ -1,0 +1,56 @@
+{% ckan_extends %}
+
+{% block package_notes %}
+  {# check to update readme infos when enters the page(last update time > 1 week will update #}
+  {% set update_msg = h.extensionstheme_update_Readme(pkg.id) %}
+  
+  {%- if not dataset_type -%}
+    <p>
+    dataset_type not passed to template. your version of CKAN
+    might not be compatible with ckanext-scheming
+    </p>
+  {%- endif -%}
+  <p style="color: #999; font-size: 20px; font-weight: bold;     text-rendering: optimizelegibility;line-height: 20px; margin-top:3px; font-family: OpenSans,Helvetica Neue,Helvetica,Arial,sans-serif; display: inline;">
+    {{pkg.repo}} ({{update_msg}})
+  </p>
+  {% if pkg.author %}
+    <div style="color: #999; font-size: 15px; font-weight: bold;     text-rendering: optimizelegibility;line-height: 20px; margin-top:3px; font-family: OpenSans,Helvetica Neue,Helvetica,Arial,sans-serif; display: inline;"><p>{{ h.render_markdown("By " + pkg.author)|urlize }}</p></div>
+  {% endif %}
+
+
+  {% if h.scheming_field_by_name(schema.dataset_fields, 'notes') and
+    pkg.notes%}
+    <div class="notes embedded-content" style="width:67%;float: left">
+      {{ h.render_markdown(pkg.notes) }}
+    </div>
+  {% endif %}
+    <div style ="width:30%; float:right">
+    {% block github_activity %}
+      {% snippet "snippets/widget/Github_Activity.html", repo_url=pkg.url %}
+    {% endblock %}
+    <br><br>
+
+    {% block disqus %}
+    <div style ="height: :10px; overflow: :auto">
+    <h1>Discussion</h1>
+      {{h.disqus_comments()}}
+    {# <div style ="height: :10px; overflow: :auto">
+      {{h.disqus_recent(num_comments=5)}}
+    </div> #}
+    </div>
+    {% endblock %}
+    
+    </div>
+    <div style ="clear:both"></div>
+{% endblock %}
+
+{% block package_resources %}
+    {#{% if pkg.resources != [] %}
+       {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources %}
+    {% endif %}#}
+{% endblock %}
+
+{% block package_additional_info %}
+  {% snippet "scheming/package/snippets/additional_info.html",
+    pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
+{% endblock %}

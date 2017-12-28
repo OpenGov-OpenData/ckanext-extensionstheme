@@ -1,0 +1,15 @@
+{% set popular_datasets = h.extensionstheme_popular_datasets() %}
+
+  <div class="module-content box">
+      <header>
+          <h2 class="heading"><a href="/dataset">Popular Extensions</a></h2>
+	  <hr/>
+      </header>
+      <section>
+          <ul id="popular-list" class="media-grid">
+              {% for package in popular_datasets %}
+                {% snippet 'home/snippets/extcard.html', package=package %}
+            {% endfor %}
+          </ul>
+      </section>
+  </div>
